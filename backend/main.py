@@ -7,12 +7,13 @@ import os, csv
 
 app = FastAPI()
 
-# 1. ADD MIDDLEWARE FIRST
 origins = [
     "http://localhost:5500",
     "[http://127.0.0.1:5500](http://127.0.0.1:5500)",
-    "[https://sih-internal-hackathon-hack4nothing.netlify.app/](https://sih-internal-hackathon-hack4nothing.netlify.app/)"
+    "[https://sih-internal-hackathon-hack4nothing.netlify.app](https://sih-internal-hackathon-hack4nothing.netlify.app)"
 ]
+
+# 1. ADD MIDDLEWARE FIRST
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
