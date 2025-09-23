@@ -10,7 +10,7 @@ app = FastAPI()
 # 1. ADD MIDDLEWARE FIRST
 origins = [
     "http://localhost:5500",
-    "http://127.0.0.1:5500",
+    "[https://68d2e2bf99a3d6bbf17d87c4--earnest-begonia-457cf1.netlify.app/](https://68d2e2bf99a3d6bbf17d87c4--earnest-begonia-457cf1.netlify.app/)",
 ]
 app.add_middleware(
     CORSMiddleware,
