@@ -7,13 +7,15 @@ import os, csv
 
 app = FastAPI()
 
+# 1. ADD MIDDLEWARE FIRST
+# --- FIX: Added your live Netlify URL to the list of allowed origins ---
 origins = [
     "http://localhost:5500",
-    "[http://127.0.0.1:5500](http://127.0.0.1:5500)",
-    "[https://sih-internal-hackathon-hack4nothing.netlify.app](https://sih-internal-hackathon-hack4nothing.netlify.app)"
+    "http://127.0.0.1:5500",
+    "https://sih-internal-hackathon-hack4nothing.netlify.app" 
 ]
+# --- END OF FIX ---
 
-# 1. ADD MIDDLEWARE FIRST
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
