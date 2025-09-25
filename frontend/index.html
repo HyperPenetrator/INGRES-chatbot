@@ -85,6 +85,10 @@
         const chatbox = document.getElementById('chatbox');
         const typingIndicator = document.getElementById('typing-indicator');
 
+        // --- EDIT: Define the base URL for your backend API ---
+        const API_BASE_URL = 'https://ingres-chatbot-h4uj.onrender.com';
+        // --- END OF EDIT ---
+
         function scrollToBottom() {
             chatbox.scrollTop = chatbox.scrollHeight;
         }
@@ -103,14 +107,14 @@
             scrollToBottom();
 
             try {
-                const response = await fetch('https://ingres-chatbot-h4uj.onrender.com/chat', { 
+                // Use the API_BASE_URL variable here
+                const response = await fetch(`${API_BASE_URL}/chat`, { 
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ message }),
                 });
 
                 if (!response.ok) {
-                    // Provide more detail on HTTP errors
                     const errorText = await response.text();
                     throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
                 }
@@ -123,15 +127,11 @@
 
             } catch (error) {
                 console.error('Error fetching chat response:', error);
-                // --- FIX: Improved Error Handling ---
-                // This provides a more specific message for the "Failed to fetch" error,
-                // which is often a Cross-Origin (CORS) issue on the backend.
                 let friendlyMessage = `Sorry, I am having trouble connecting to the server. (${error.message})`;
                 if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-                    friendlyMessage = 'A network error occurred, which is likely a CORS issue on the backend. Please ensure your Netlify URL is correctly added to the `origins` list in your `main.py` file and that the backend has been redeployed.';
+                    friendlyMessage = 'A network error occurred, which is likely a CORS issue on the backend. Please ensure your frontend URL is correctly added to the `origins` list in your `main.py` file and that the backend has been redeployed.';
                 }
                 appendMessage('INGRES Bot', { response: friendlyMessage }, 'bot');
-                // --- END OF FIX ---
             } finally {
                 typingIndicator.classList.add('hidden');
                 scrollToBottom();
@@ -194,4 +194,3 @@
     </script>
 </body>
 </html>
-
