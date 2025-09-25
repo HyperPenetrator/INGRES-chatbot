@@ -2,13 +2,9 @@
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from backend.db import init_db
-from backend.routers import datasets
 import os
 import csv
 
-init_db()
-app.include_router(datasets.router)
 app = FastAPI()
 
 # 1. CORS MIDDLEWARE
@@ -82,5 +78,4 @@ async def handle_chat_request(request: Request):
         bot_response_text = "I'm sorry, I don't have information for that location."
 
     return {"response": bot_response_text, "data": bot_response_data}
-
 
